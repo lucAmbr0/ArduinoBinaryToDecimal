@@ -10,8 +10,14 @@
 #define C 9
 #define D 10
 #define E 11
-#define F 10
+#define F 12
 #define G 13
+
+int b1_state = 0;
+int b2_state = 0;
+int b4_state = 0;
+int b8_state = 0;
+int num = 0;
 
 void resetSegments();
 void write0();
@@ -24,6 +30,12 @@ void write6();
 void write7();
 void write8();
 void write9();
+void writeA();
+void writeB();
+void writeC();
+void writeD();
+void writeE();
+void writeF();
 
 void setup() {
   pinMode(b1, INPUT_PULLUP);
@@ -41,25 +53,81 @@ void setup() {
 }
 
 void loop() {
-  write0();
-  delay(1000);
-  write1();
-  delay(1000);
-  write2();
-  delay(1000);
-  write3();
-  delay(1000);
-  write4();
-  delay(1000);
-  write5();
-  delay(1000);
-  write6();
-  delay(1000);
-  write7();
-  delay(1000);
-  write8();
-  delay(1000);
-  write9();
+  if (digitalRead(b1) == 0 && b1_state != 0) b1_state = 0;
+  else if (digitalRead(b1) == 0) b1_state = 1;
+  if (digitalRead(b2) == 0 && b2_state != 0) b2_state = 0;
+  else if (digitalRead(b2) == 0) b2_state = 2;
+  if (digitalRead(b4) == 0 && b4_state != 0) b4_state = 0;
+  else if (digitalRead(b4) == 0) b4_state = 4;
+  if (digitalRead(b8) == 0 && b8_state != 0) b8_state = 0;
+  else if (digitalRead(b8) == 0) b8_state = 8;
+  num = 0;
+  num = b1_state + b2_state + b4_state + b8_state;
+  Serial.println(" ");
+  Serial.print("b1_state = ");
+  Serial.println(b1_state);
+  Serial.print("b2_state = ");
+  Serial.println(b2_state);
+  Serial.print("b4_state = ");
+  Serial.println(b4_state);
+  Serial.print("b8_state = ");
+  Serial.println(b8_state);
+  Serial.print("num = ");
+  Serial.println(num);
+  switch (num)
+  {
+  case 0:
+    write0();
+    break;
+  case 1:
+    write1();
+    break;
+  case 2:
+    write2();
+    break;
+  case 3:
+    write3();
+    break;
+  case 4:
+    write4();
+    break;
+  case 5:
+    write5();
+    break;
+  case 6:
+    write6();
+    break;
+  case 7:
+    write7();
+    break;
+  case 8:
+    write8();
+    break;
+  case 9:
+    write9();
+    break;
+  case 10:
+    writeA();
+    break;
+  case 11:
+    writeB();
+    break;
+  case 12:
+    writeC();
+    break;
+  case 13:
+    writeD();
+    break;
+  case 14:
+    writeE();
+    break;
+  case 15:
+    writeF();
+    break;
+  default:
+    resetSegments();
+    break;
+  }
   delay(1000);
 }
 
@@ -160,6 +228,60 @@ void write9() {
   digitalWrite(C, HIGH);
   digitalWrite(D, HIGH);
   digitalWrite(E, LOW);
+  digitalWrite(F, HIGH);
+  digitalWrite(G, HIGH);
+}
+void writeA() {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, HIGH);
+  digitalWrite(C, HIGH);
+  digitalWrite(D, LOW);
+  digitalWrite(E, HIGH);
+  digitalWrite(F, HIGH);
+  digitalWrite(G, HIGH);
+}
+void writeB() {
+  digitalWrite(A, LOW);
+  digitalWrite(B, LOW);
+  digitalWrite(C, HIGH);
+  digitalWrite(D, HIGH);
+  digitalWrite(E, HIGH);
+  digitalWrite(F, HIGH);
+  digitalWrite(G, HIGH);
+}
+void writeC() {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, LOW);
+  digitalWrite(C, LOW);
+  digitalWrite(D, HIGH);
+  digitalWrite(E, HIGH);
+  digitalWrite(F, HIGH);
+  digitalWrite(G, LOW);
+}
+void writeD() {
+  digitalWrite(A, LOW);
+  digitalWrite(B, HIGH);
+  digitalWrite(C, HIGH);
+  digitalWrite(D, HIGH);
+  digitalWrite(E, HIGH);
+  digitalWrite(F, LOW);
+  digitalWrite(G, HIGH);
+}
+void writeE() {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, LOW);
+  digitalWrite(C, LOW);
+  digitalWrite(D, HIGH);
+  digitalWrite(E, HIGH);
+  digitalWrite(F, HIGH);
+  digitalWrite(G, HIGH);
+}
+void writeF() {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, LOW);
+  digitalWrite(C, LOW);
+  digitalWrite(D, LOW);
+  digitalWrite(E, HIGH);
   digitalWrite(F, HIGH);
   digitalWrite(G, HIGH);
 }
